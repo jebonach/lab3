@@ -5,4 +5,4 @@
 
 void bubble_sort(List* list, int (*cmp)(Publication, Publication));
 
-#endif // SORT_H
+#endif

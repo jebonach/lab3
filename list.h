@@ -20,4 +20,4 @@ void init_list(List* list);
 void append(List* list, Publication data);
 void clear_list(List* list);
 
-#endif // LIST_H
+#endif

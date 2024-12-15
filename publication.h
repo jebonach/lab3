@@ -17,4 +17,4 @@ typedef struct {
     int citations;
 } Publication;
 
-#endif // PUBLICATION_H
+#endif

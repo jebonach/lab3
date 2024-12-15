@@ -16,71 +16,68 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    // --generate
     if (strcmp(argv[1], "--generate") == 0) {
-        if (argc < 4) {
-            fprintf(stderr, "Error: Missing arguments for --generate.\n");
-            print_usage();
-            return 1;
+        // Ищем N и --out=file
+        int count = 0;
+        const char* output_file = "output.csv";
+
+        for (int i = 2; i < argc; i++) {
+            if (strncmp(argv[i], "--out=", 6) == 0) {
+                output_file = argv[i] + 6; // Всё после "--out="
+            } else {
+                // Предполагаем, что это число
+                int val = atoi(argv[i]);
+                if (val > 0) count = val;
+            }
         }
 
-        int count = atoi(argv[2]);
         if (count <= 0) {
             fprintf(stderr, "Error: Invalid count for --generate.\n");
             print_usage();
             return 1;
         }
 
-        const char* output_file = "output.csv";
-        for (int i = 3; i < argc; i++) {
-            if (strcmp(argv[i], "--out") == 0 && i + 1 < argc) {
-                output_file = argv[i + 1];
-            }
-        }
-
         handle_generate(count, output_file);
-    }
-    // --sort
+    } 
     else if (strcmp(argv[1], "--sort") == 0) {
         const char* input_file = NULL;
         const char* output_file = NULL;
 
+        // Ищем --in=... и --out=...
         for (int i = 2; i < argc; i++) {
-            if (strcmp(argv[i], "--in") == 0 && i + 1 < argc) {
-                input_file = argv[i + 1];
-            }
-            if (strcmp(argv[i], "--out") == 0 && i + 1 < argc) {
-                output_file = argv[i + 1];
+            if (strncmp(argv[i], "--in=", 5) == 0) {
+                input_file = argv[i] + 5; 
+            } else if (strncmp(argv[i], "--out=", 6) == 0) {
+                output_file = argv[i] + 6;
             }
         }
 
-        if (input_file && output_file) {
-            handle_sort(input_file, output_file);
-        } else {
+        if (!input_file || !output_file) {
             fprintf(stderr, "Error: Missing --in or --out for --sort.\n");
             print_usage();
             return 1;
         }
+
+        handle_sort(input_file, output_file);
     }
-    // --print
     else if (strcmp(argv[1], "--print") == 0) {
         const char* input_file = NULL;
 
+        // Ищем --in=...
         for (int i = 2; i < argc; i++) {
-            if (strcmp(argv[i], "--in") == 0 && i + 1 < argc) {
-                input_file = argv[i + 1];
+            if (strncmp(argv[i], "--in=", 5) == 0) {
+                input_file = argv[i] + 5;
             }
         }
 
-        if (input_file) {
-            handle_print(input_file);
-        } else {
-            fprintf(stderr, "Error: Missing --in for --print.\n");
+        if (!input_file) {
+            fprintf(stderr, "Error: Missing or invalid --in for --print.\n");
             print_usage();
             return 1;
         }
-    }
-    // Неизвестный флаг
+
+        handle_print(input_file);
+    } 
     else {
         fprintf(stderr, "Error: Unknown option %s\n", argv[1]);
         print_usage();
