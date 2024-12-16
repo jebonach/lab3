@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <time.h>
 #include "commands.h"
 #include "list.h"
 #include "io.h"
@@ -15,11 +16,26 @@ int compare_by_year(Publication a, Publication b) {
 void handle_generate(int count, const char* output_file) {
     List list;
     init_list(&list);
+    srand((unsigned)time(NULL));
 
-    Publication sample = {"Title", "Author", "A.B.", "Journal", 2023, 1, true, 10, 5};
+    const char* titles[] = {"Article", "Research", "Study", "Investigation", "Analysis"};
+    const char* authors[] = {"Guryev", "Seliverstov", "Cherkasov", "Bogatyrev", "Minkin"};
+    const char* initials[] = {"T.A.", "I.A.", "I.S.", "S.A.", "M.K."};
+    const char* journals[] = {"Journal A", "Journal B", "Journal C", "Journal D", "Journal E"};
+
     for (int i = 0; i < count; i++) {
-        Publication p = sample;
-        // Можете добавить генерацию случайных данных здесь по необходимости
+        Publication p;
+        strcpy(p.title, titles[rand() % 5]);
+        strcpy(p.author_last_name, authors[rand() % 5]);
+        strcpy(p.author_initials, initials[rand() % 5]);
+        strcpy(p.journal_name, journals[rand() % 5]);
+
+        p.year = 2000 + rand() % 24;
+        p.volume = rand() % 10 + 1;
+        p.is_in_rinc = rand() % 2;
+        p.pages = rand() % 300 + 1;
+        p.citations = rand() % 500;
+
         append(&list, p);
     }
 
