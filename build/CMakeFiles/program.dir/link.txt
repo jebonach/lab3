@@ -1,1 +1,0 @@
-/usr/bin/cc -Wl,--dependency-file=CMakeFiles/program.dir/link.d CMakeFiles/program.dir/main.c.o CMakeFiles/program.dir/commands.c.o CMakeFiles/program.dir/list.c.o CMakeFiles/program.dir/sort.c.o CMakeFiles/program.dir/io.c.o CMakeFiles/program.dir/parser.c.o -o program
