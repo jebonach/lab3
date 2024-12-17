@@ -1,0 +1,3 @@
+/home/jebonach/c-cpp/laba3/build/CMakeFiles/program.dir
+/home/jebonach/c-cpp/laba3/build/CMakeFiles/edit_cache.dir
+/home/jebonach/c-cpp/laba3/build/CMakeFiles/rebuild_cache.dir

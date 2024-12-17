@@ -8,11 +8,17 @@ typedef enum {
     ACTION_PRINT
 } ActionType;
 
+typedef enum {
+    SORT_ASC,
+    SORT_DESC
+} SortOrder;
+
 typedef struct {
     ActionType action;
-    int count;
-    const char* input_file;
+    int count;              
+    const char* input_file; 
     const char* output_file;
+    SortOrder order; 
 } ParsedArgs;
 
 void print_usage();

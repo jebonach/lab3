@@ -8,9 +8,14 @@
 #include "io.h"
 #include "sort.h"
 #include "publication.h"
+#include "parser.h"
 
-int compare_by_year(Publication a, Publication b) {
+int compare_year_asc(Publication a, Publication b) {
     return a.year - b.year;
+}
+
+int compare_year_desc(Publication a, Publication b) {
+    return b.year - a.year;
 }
 
 void handle_generate(int count, const char* output_file) {
@@ -44,7 +49,7 @@ void handle_generate(int count, const char* output_file) {
     clear_list(&list);
 }
 
-void handle_sort(const char* input_file, const char* output_file) {
+void handle_sort(const char* input_file, const char* output_file, SortOrder order) {
     List list;
     init_list(&list);
 
@@ -54,7 +59,12 @@ void handle_sort(const char* input_file, const char* output_file) {
         return;
     }
 
-    bubble_sort(&list, compare_by_year);
+    if (order == SORT_ASC) {
+        bubble_sort(&list, compare_year_asc);
+    } else {
+        bubble_sort(&list, compare_year_desc);
+    }
+
     write_to_file(output_file, &list);
     printf("Sorted records saved to %s\n", output_file);
 

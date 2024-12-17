@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
             handle_generate(args.count, args.output_file);
             break;
         case ACTION_SORT:
-            handle_sort(args.input_file, args.output_file);
+            handle_sort(args.input_file, args.output_file, args.order);
             break;
         case ACTION_PRINT:
             handle_print(args.input_file);
